@@ -13,11 +13,45 @@ export default {
   },
   data() {
     return {
-      notes: ["task 1", "task 2", "task 3"],
+      notes: [
+        {
+          title: "Выучить Vue 3",
+          tags: ["работа"],
+        },
+        {
+          title: "Закончить курс",
+          tags: ["работа", "дом"],
+        },
+        {
+          title: "Привет",
+          tags: [],
+        },
+      ],
     };
   },
+  mounted() {
+    this.getNotes();
+  },
+  watch: {
+    notes: {
+      handler(updatedList) {
+        localStorage.setItem("notes", JSON.stringify(updatedList));
+      },
+      deep: true,
+    },
+  },
   methods: {
-    handleSubmit(note) {
+    getNotes() {
+      const localNotes = localStorage.getItem("notes");
+      if (localNotes) {
+        this.notes = JSON.parse(localNotes);
+      }
+    },
+    handleSubmit(title) {
+      const note = {
+        title: title,
+        tags: [],
+      };
       this.notes.push(note);
     },
     handleRemove(index) {
