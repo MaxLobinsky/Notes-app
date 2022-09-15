@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TagsList from "@/components/UI/TagsList.vue"
+import TagsList from "@/components/UI/TagsList.vue";
 export default {
   components: {
     TagsList,
@@ -25,8 +25,8 @@ export default {
       this.$emit("onSubmit", this.value);
       this.value = "";
     },
-    handleTagClick (tag) {
-      console.log(tag)
+    handleTagClick(tag) {
+      console.log(tag);
     },
   },
 };
