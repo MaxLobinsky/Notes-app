@@ -2,7 +2,7 @@
   <div class="note-form__wrapper">
     <form class="note-form" @submit.prevent="onSubmit">
       <textarea required v-model="value" placeholder="Type your note" />
-      <TagsList @onItemClick="handleTagClick" :items="tags" />
+      <TagsList @onItemClick="handleTagClick" :items="tags" :tag="tag" />
       <button class="btn btnPrimary" type="submit">Add new note</button>
     </form>
   </div>
@@ -18,15 +18,21 @@ export default {
     return {
       value: "",
       tags: ["дом", "работа", "путешествия"],
+      tag: [],
     };
   },
   methods: {
     onSubmit() {
-      this.$emit("onSubmit", this.value);
+      this.$emit("onSubmit", this.value, this.tag);
       this.value = "";
+      this.tag = [];
     },
     handleTagClick(tag) {
-      console.log(tag);
+      if (!this.tag.includes(tag)) this.tag.push(tag);
+      else {
+        let tagIndex = this.tag.indexOf(tag);
+        this.tag.splice(tagIndex, 1);
+      }
     },
   },
 };

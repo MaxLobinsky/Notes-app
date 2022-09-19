@@ -4,8 +4,8 @@
       class="tag-item"
       v-for="item in items"
       :key="item"
-      @click="$emit('onItemClick', item), (isActive === item ? isActive = false : isActive = item)"
-      :class="{ isPreview: isPreview, isActive: isActive === item }"
+      @click="$emit('onItemClick', item)"
+      :class="{ isPreview: isPreview, isActive: tag.includes(item) }"
     >
       {{ item }}
     </div>
@@ -15,6 +15,10 @@
 <script>
 export default {
   props: {
+    tag: {
+      type: Array,
+      default: [],
+    },
     items: {
       type: Array,
       required: true,
